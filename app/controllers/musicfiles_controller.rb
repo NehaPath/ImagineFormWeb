@@ -62,7 +62,7 @@ class MusicfilesController < ApplicationController
     end
 
     def correct_user
-      @music_file = current_user.musicfiles.find_by(params[:id])
+      @musicfile = current_user.musicfiles.find_by(params[:id])
       redirect_to musicfiles_path, notice: "Not authorized to edit this file" if @musicfile.nil?
     end 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -12,6 +12,20 @@
 	border-radius: 50%
 }
 
+#draggableElement2{
+	width: 50px; 
+	height: 50px; 
+	background:black; 
+	border-radius: 50%
+}
+
+#draggableElement3{
+	width: 50px; 
+	height: 50px; 
+	background:black; 
+	border-radius: 50%
+}
+
 #background {
 	width: 600px; 
 	height: 500px; 
@@ -28,8 +42,7 @@
 $( init );
 
 function init() {
-  $('#draggableElement').draggable();
-  $('#draggableElement').draggable();
+  $('.draggable').draggable();
 }
 
 </script>
@@ -42,13 +55,12 @@ function init() {
 	</div>
 
 <div id="content" style="height: 400px;">
-  <div id="draggableElement"> </div>
-	</div>
+  <div id="draggableElement" class='draggable'> </div>
 
-<div id="content" style="height: 400px;">
-  <div id="draggableElement"> </div>
+  <div id="draggableElement2" class='draggable'> </div>
+
+  <div id="draggableElement3" class='draggable'> </div>
 	</div>
- 
  
 </body>
 </html>

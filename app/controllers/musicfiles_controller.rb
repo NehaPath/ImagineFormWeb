@@ -3,7 +3,6 @@ class MusicfilesController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index]
 
-
   def index
     @musicfiles = Musicfile.all
   end
@@ -14,19 +13,16 @@ class MusicfilesController < ApplicationController
 
   def new
     @musicfile = current_user.musicfiles.build
-    # @musicfile = Musicfile.new(user_id: current_user.id) these are the same
   end
 
 
   def edit
     @musicfile = Musicfile.find(params[:id])    
-    # binding.pry
   end
 
   def create
     @musicfile = current_user.musicfiles.build(musicfile_params)
 
-   # respond_to do |format|
       if @musicfile.save
         redirect_to @musicfile, notice: 'Music File was successfully created.'
       else
@@ -34,9 +30,6 @@ class MusicfilesController < ApplicationController
       end
     end
 
-
-  # PATCH/PUT /musicfiles/1
-  # PATCH/PUT /musicfiles/1.json
   def update
     @musicfile = Musicfile.find(params[:id])    
 

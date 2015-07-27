@@ -2,18 +2,6 @@ Rails.application.routes.draw do
   
   resources :musicfiles
 
-  # get 'musicfiles/new' => 'musicfiles#new'
-  
-  # get 'musicfiles/:id' => 'musicfiles#show'
-  # get 'musicfiles/:id/edit' => 'musicfiles#edit'
-  
-  # get 'musicfiles' => 'musicfiles#index'
-  # post 'musicfiles' => 'musicfiles#create'
-  
-  # delete 'musicfiles/:id' => 'musicfiles#destroy'
-
-  # post 'musicfiles/:id' => 'musicfiles#update'
-
   devise_for :users
   root "pages#home"
   get "about" => "pages#about" 

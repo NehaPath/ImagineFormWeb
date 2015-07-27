@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   def about
   end
 
-  def uploadMusic
+  def upload_music
   end
 
   def formations

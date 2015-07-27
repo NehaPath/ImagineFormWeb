@@ -1,0 +1,15 @@
+<p>
+  <strong>Description:</strong>
+  <%= @music_file.description %>
+</p>
+
+<p>
+  <strong>File Name:</strong>
+  <%= @music_file.audio_file_name %>
+</p>
+
+<% if @music_file.user == current_user %>
+<%= link_to 'Edit', edit_music_file_path(@music_file) %> |
+<% end %>
+<%= link_to 'Back', music_files_path %>
+

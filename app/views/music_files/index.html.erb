@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Music Files</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>User's email</th>
+      <th colspan="1"></th>
+      <th>File name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @music_files.each do |music_file| %>
+      <tr>
+        <td><%= music_file.description %></td>
+        <td><%= music_file.user.email if music_file.user%></td>
+        <td><%= link_to 'Show', music_file %></td>
+        <% if music_file.user == current_user %>
+          <td><%= music_file.audio_file_name %><td>
+          <td><%= link_to 'Edit', edit_music_file_path(music_file) %></td>
+          <td><%= link_to 'Destroy', music_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+         # <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if user_signed_in? %>
+<%= link_to 'new music file', new_music_file_path %>
+<% end %>

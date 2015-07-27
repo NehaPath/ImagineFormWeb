@@ -1,6 +1,6 @@
-class AddUserIdToMusicfiles < ActiveRecord::Migration
+class AddUserIdToMusicFiles < ActiveRecord::Migration
   def change
-    add_column :musicfiles, :user_id, :integer
-    add_index :musicfiles, :user_id
+    add_column :music_files, :user_id, :integer
+    add_index :music_files, :user_id
   end
 end

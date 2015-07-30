@@ -2,34 +2,24 @@
 <html lang="en">
 <head>
 
-<title>Formation Creator</title>
+<form>
+Number of people:<br>
+<input type='number' value='0' id="people-number-picker">
+<br>
+<br>
+</form>
 
 <body style= "background-color: #81CFE0">
 
 <style>
-#draggableElement{
+#circle{
 	width: 50px; 
 	height: 50px; 
-	background:black; 
+	background:red; 
 	border-radius: 50%;
 }
 
-#draggableElement.ui-draggable-dragging { background: green; }
-}
-
-#draggableElement2{
-	width: 50px; 
-	height: 50px; 
-	background:black; 
-	border-radius: 50%;
-}
-
-#draggableElement3{
-	width: 50px; 
-	height: 50px; 
-	background:black; 
-	border-radius: 50%
-}
+#circle.ui-draggable-dragging { background: green; }
 
 #background {
 	width: 600px; 
@@ -37,13 +27,49 @@
 	background:white; 
 	display: block;
 	margin: 0 auto;
+	border: 2px solid #333;
 }
+
+#circlePile {
+  margin: 50px auto;
+  background: #ffd;
+}
+
+#circlePile {
+  width: 910px;
+  height: 100px;
+  padding: 20px;
+  border: 2px solid #333;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+#circlePile div {
+  float: left;
+  width: 50px;
+  height: 50px;
+  padding-left: 18px;
+  padding-top: 14px;
+  padding-bottom: 10px;
+  border: 2px solid #333;
+
+  border-radius: 50%;
+  margin: 0 0 0 10px;
+  background: #81CFE0;
+}
+
+#circlePile div:first-child {
+  margin-left: 0;
+}
+
 </style>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
 <script type="text/javascript">
 
+//var circles = 10;
 $( init );
 
 function init() {
@@ -53,16 +79,75 @@ function init() {
   	containment: '#background',
   	stop: coordinates
   });
+
+  $('#submit').css( {
+    left: '580px',
+    top: '250px',
+    width: 0,
+    height: 0
+  } );
+
+  $('#circlePile').html( '' );
+
+//create circles
+//
+
+
+
+ $("#people-number-picker").change(function (event){
+ 	var people = event.target.valueAsNumber
+ 	console.log(people)
+ 	//debugger
+ 	//alert("change");
+
+   for ( var i=1; i<people+1; i++ ) {
+    $('<div>' + i + '</div>').data('number', i).attr('id', 'circle'+i).appendTo('#circlePile').draggable( {
+      containment: '#background',
+      stop: coordinates
+    });
+
+     }
+
+  });
+
+  $('#background').droppable( 
+  	{
+      accept: '#circlePile div',
+      hoverClass: 'hovered',
+      drop: handleCircleDrop
+    });
+
+ function handleCircleDrop( event, ui ) {
+
+	ui.draggable.addClass( 'correct' );
+	
+	$('#submit').show();
+    $('#submit').animate( 
+    {
+      left: '600px',
+      top: '200px',
+      width: '400px',
+      height: '100px',
+      opacity: 1
+    } );
+ 
+  }
+ 
 }
     
 function coordinates( event, ui ) {
     {
         var x = ui.position.left;
         var y = ui.position.top;
-        console.log("drag stopped, current pos = "+ui.position.left+" "+ui.position.top+"", event, ui);
+        var id = "i don't know yet";
+        // get the circle element
+        //debugger
+        id = $(event.target).data('number')
+        console.log("drag stopped, "+id+" current pos = "+ui.position.left+" "+ui.position.top+"", event, ui);
         alert( "Drag stopped!\n\nCoordinates: (" + x + ", " + y + ")\n");
     }
 }
+
 
 </script>
 
@@ -70,18 +155,15 @@ function coordinates( event, ui ) {
 <body>
 
 <div id="content" style="height: 400px;">
+
   <div id="background"> </div>
-	</div>
 
-<div id="content" style="height: 400px;">
-  <div id="draggableElement" class='draggable'> </div>
+  <div id="circle" class='draggable'> </div>
+  <div id="circlePile"> </div>
 
-  <div id="draggableElement2" class='draggable'> </div>
-
-  <div id="draggableElement3" class='draggable'> </div>
-	</div>
-
-
+  <div id="submit">
+    <button onclick="init()">Submit</button>
+  </div>
  
 </body>
 </html>

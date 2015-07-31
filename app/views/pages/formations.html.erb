@@ -3,23 +3,20 @@
 <head>
 
 <form>
-Number of people:<br>
+Total Number of People:<br>
 <input type='number' value='0' id="people-number-picker">
-<br>
-<br>
+<br><br>
 </form>
 
 <body style= "background-color: #81CFE0">
 
 <style>
-#circle{
+/*#circle{
 	width: 50px; 
 	height: 50px; 
 	background:red; 
 	border-radius: 50%;
-}
-
-#circle.ui-draggable-dragging { background: green; }
+}*/
 
 #background {
 	width: 600px; 
@@ -32,7 +29,7 @@ Number of people:<br>
 
 #circlePile {
   margin: 50px auto;
-  background: #ffd;
+  background: #E0EEEE;
 }
 
 #circlePile {
@@ -52,12 +49,14 @@ Number of people:<br>
   padding-left: 18px;
   padding-top: 14px;
   padding-bottom: 10px;
-  border: 2px solid #333;
+  border: 2px solid #1E8BC3;
 
   border-radius: 50%;
   margin: 0 0 0 10px;
-  background: #81CFE0;
+  background: #4ECDC4;
 }
+
+#circlePile div.ui-draggable-dragging { background: #FF82AB; }
 
 #circlePile div:first-child {
   margin-left: 0;
@@ -74,6 +73,9 @@ $( init );
 
 function init() {
 
+
+  $( "#background" ).resizable();
+
   $('.draggable').draggable(
   {
   	containment: '#background',
@@ -87,18 +89,21 @@ function init() {
     height: 0
   } );
 
-  $('#circlePile').html( '' );
 
 //create circles
-//
 
-
-
+var peopleold = -1
  $("#people-number-picker").change(function (event){
- 	var people = event.target.valueAsNumber
+ 	people = event.target.valueAsNumber
  	console.log(people)
- 	//debugger
- 	//alert("change");
+
+ 	if (peopleold > -1){
+ 		console.log(peopleold)
+ 		 for ( var i=1; i<peopleold+1; i++ ) {
+		 	var name = "#circle"+i
+		 	$(name).remove();
+		}
+ 	}
 
    for ( var i=1; i<people+1; i++ ) {
     $('<div>' + i + '</div>').data('number', i).attr('id', 'circle'+i).appendTo('#circlePile').draggable( {
@@ -106,8 +111,11 @@ function init() {
       stop: coordinates
     });
 
+  peopleold = people
      }
 
+  
+ 
   });
 
   $('#background').droppable( 
@@ -117,9 +125,13 @@ function init() {
       drop: handleCircleDrop
     });
 
+  $("#submit-people").click(function (event){
+	});
+
+
+
  function handleCircleDrop( event, ui ) {
 
-	ui.draggable.addClass( 'correct' );
 	
 	$('#submit').show();
     $('#submit').animate( 
@@ -156,13 +168,13 @@ function coordinates( event, ui ) {
 
 <div id="content" style="height: 400px;">
 
-  <div id="background"> </div>
+  <div id="background" class="ui-widget-content"> </div>
 
   <div id="circle" class='draggable'> </div>
   <div id="circlePile"> </div>
 
   <div id="submit">
-    <button onclick="init()">Submit</button>
+    <button onclick="init()">Submit Formation</button>
   </div>
  
 </body>
